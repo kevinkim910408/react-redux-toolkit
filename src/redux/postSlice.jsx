@@ -3,7 +3,9 @@ import { createSlice } from "@reduxjs/toolkit";
 export const postSlice = createSlice({
     name: 'post',
     initialState: {
-        lists:[]
+        lists:[],
+        loading: false,
+        error: null,
     },
     reducers:{
         // add action
