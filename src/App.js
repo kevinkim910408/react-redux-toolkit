@@ -1,11 +1,16 @@
-import Posts from './components/Posts'
-import './App.css'
-import {fetchUsers} from './redux/userSlice'
+// import Posts from './components/Posts'
+
+// import {fetchUsers} from './redux/userSlice'
+import { loadUsers } from './redux/postSliceTwo';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import PostsTwo from './components/PostsTwo';
+import './App.css'
 
 function App() {
+  /*
+
+  // axios 에서 get 한거 보여주기
   // 평범한 store에 접근하기 -> 객체 비구조화를 사용해서 코드를 간결하게
   const {users} = useSelector(state => state.user);
   
@@ -17,14 +22,21 @@ function App() {
     dispatch(fetchUsers());
   },[dispatch])
 
-  console.log(users)
   let userList = [];
   if(users !== undefined){
     userList = users.map((value)=>{
       return <p key={value.id}>{value.id} : {value.title}</p>
     })
   }
- 
+  
+ */
+
+  // firestore에서 get 한거 보여주기
+  const dispatch = useDispatch();
+  useEffect(()=>{
+    dispatch(loadUsers());
+  },[dispatch])
+  
 
   return (
     <div>
@@ -35,7 +47,7 @@ function App() {
       {/* 여기서부터는 Thunk로 firestore 접근 */}
       <PostsTwo />
       {/* 여기서 부터는 Thunk axios로 get 하기 */}
-      {userList}
+      {/* {userList} */}
 
     </div>
   );
