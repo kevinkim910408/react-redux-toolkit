@@ -3,15 +3,14 @@ import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 
-
 const firebaseConfig = {
-    apiKey: "AIzaSyAiRbdImZOcrAdbxG80rd2BzYDs2qS7CXI",
-    authDomain: "potatogram-b14d3.firebaseapp.com",
-    projectId: "potatogram-b14d3",
-    storageBucket: "potatogram-b14d3.appspot.com",
-    messagingSenderId: "433554661019",
-    appId: "1:433554661019:web:9c137007e717cbff56b03e",
-    measurementId: "G-84HZYYFLK0"
+    apiKey: process.env.APIKEY,
+    authDomain: process.env.AUTHDOMAIN,
+    projectId: process.env.PROJECTID,
+    storageBucket: process.env.STORAGEBUCKET,
+    messagingSenderId: process.env.MESSAGINSENDERID,
+    appId: process.env.APPID,
+    measurementId: process.env.MEASUREMENTID
 };
 
 const app = initializeApp(firebaseConfig);
