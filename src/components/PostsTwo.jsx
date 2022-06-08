@@ -1,35 +1,44 @@
 import React, {useState} from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+// 액션함수
 import { addUsers, deleteUser, updateUser } from '../redux/postSliceTwo'
 
 const PostsTwo = () => {
   const dispatch = useDispatch();
+  // store에 저장된 값 빼오기
   const {lists} = useSelector(state => state.postsTwo)
 
+  // title, description 은 state 관리 = html이 자꾸 바뀌니까
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   
+  // 업데이트 버튼 누르면 아래 toggle창 생기게 해주는 state
   const [edit, setEdit] = useState(false);
   const [id, setId] = useState(null);
 
+  // 수정 된 값을 저정할 state
   const [updateTitle, updateSetTitle] = useState("");
   const [updateDescription, updateSetDescription] = useState("");
 
+  // 추가 
   const addPostHandler = () =>{
     dispatch(addUsers({uid: lists.length +1, title, description}));
     setTitle("");
     setDescription("");
   }
 
+  // 삭제 - 한 페이지에서 진행하다보니, uid를 따로 생성해서 넘겨준다.
   const deleteHandler =(id, uid) =>{
     dispatch(deleteUser({id, uid}))
   }
 
+  // 수정버튼 toggle
   const updateModal = (id) =>{
     setEdit(true)
     setId(id)
   }
 
+  // 수정
   const updatePostHandler = (updatedData) => {
     dispatch(updateUser(updatedData))
   }

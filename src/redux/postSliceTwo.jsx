@@ -52,6 +52,7 @@ export const updateUser = createAsyncThunk(UPDATE_USER, async(payload)=>{
 })
 
 
+// 리듀서
 export const postsSliceTwo =createSlice({
     name: 'postTwo',
     initialState:{
@@ -59,22 +60,25 @@ export const postsSliceTwo =createSlice({
         loading: false,
         error: null,
     },
+    // 일반 리듀서는 안쓴다.
     reducers:{},
+    // extra reducer = middleware
     extraReducers: builder =>{
         // 추가
-        builder.addCase(addUsers.pending, state => {
+        builder.addCase(addUsers.pending, state => { // 로딩 = pending
             state.loading = true;
         })
-        builder.addCase(addUsers.fulfilled, (state, action)=>{
+        builder.addCase(addUsers.fulfilled, (state, action)=>{ // 값에 직접적 영향 = fulfilled
             state.loading = false;
             state.lists.push(action.payload);
             state.error = null;
         })
-        builder.addCase(addUsers.rejected, (state, action)=>{
+        builder.addCase(addUsers.rejected, (state, action)=>{ // 에러 = rejected
             state.loading = false;
             state.lists = [];
             state.error = action.error.message;
         })
+
         // 불러오기
         builder.addCase(loadUsers.pending, state => {
             state.loading = true;
@@ -89,12 +93,14 @@ export const postsSliceTwo =createSlice({
             state.lists = [];
             state.error = action.error.message;
         })
+
         // 삭제
         builder.addCase(deleteUser.pending, state => {
             state.loading = true;
         })
         builder.addCase(deleteUser.fulfilled, (state, action)=>{
             state.loading = false;
+            // 삭제 로직- 한 페이지에서 진행하다보니, 각 게시글마다 uid를 먹여서 그거 대로 삭제
             state.lists = state.lists.filter(value=>{
                 return value.uid !== action.payload
             })
@@ -105,12 +111,14 @@ export const postsSliceTwo =createSlice({
             state.lists = [];
             state.error = action.error.message;
         })
+
         // 수정
         builder.addCase(updateUser.pending, state => {
             state.loading = true;
         })
         builder.addCase(updateUser.fulfilled, (state, action)=>{
             state.loading = false;
+            // 수정 로직 - value로 날아온 값중에 uid 같으면 데이터 변경해줌
             state.lists.forEach((value)=>{
                 if(value.uid === action.payload.uid){
                     value.title = action.payload.title;
