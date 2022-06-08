@@ -1,4 +1,4 @@
-// import Posts from './components/Posts'
+import Posts from './components/Posts'
 
 // import {fetchUsers} from './redux/userSlice'
 import { loadUsers } from './redux/postSliceTwo';
