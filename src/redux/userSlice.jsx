@@ -2,11 +2,10 @@ import { createSlice, createAsyncThunk  } from "@reduxjs/toolkit";
 import axios from "axios";
 
 // 유저 정보를 가져오는 Thunk (Read)
-export const fetchUsers = createAsyncThunk('todos/fetchUsers', async() => {
+export const fetchUsers = createAsyncThunk('users/fetchUsers', async() => {
     const response = await axios.get('https://jsonplaceholder.typicode.com/todos/')
     return response.data;
 })
-
 
 export const userSlice = createSlice({
     name: 'user', 
@@ -22,12 +21,12 @@ export const userSlice = createSlice({
         })
         builder.addCase(fetchUsers.fulfilled, (state, action)=>{
             state.loading = false;
-            state.users = action.payload;
+            state.lists = action.payload;
             state.error = null;
         })
         builder.addCase(fetchUsers.rejected, (state, action)=>{
             state.loading = false;
-            state.users = [];
+            state.lists = [];
             state.error = action.error.message;
         })
     }

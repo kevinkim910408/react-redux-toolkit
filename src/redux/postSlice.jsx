@@ -2,12 +2,10 @@ import { createSlice } from "@reduxjs/toolkit";
 
 export const postSlice = createSlice({
     name: 'post',
-    initialState: {
+    initialState: { // 초기값
         lists:[],
-        loading: false,
-        error: null,
     },
-    reducers:{
+    reducers:{ 
         // add action
         addPost: function(state, {type, payload}) {
             state.lists.push(payload);
@@ -29,6 +27,7 @@ export const postSlice = createSlice({
             })
         },
     }
+
 })
 
 // 아래처럼 내가 위에서 만든 actions 밖으로 export 해줘야지 사용 가능하다.

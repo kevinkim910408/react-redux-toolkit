@@ -31,12 +31,22 @@ function App() {
   
  */
 
-  // firestore에서 get 한거 보여주기
-  const dispatch = useDispatch();
-  useEffect(()=>{
-    dispatch(loadUsers());
-  },[dispatch])
+  // const {lists, error, loading} = useSelector(state=>state.postsTwo)
+  // console.log(lists)
+
+  // // firestore에서 get 한거 보여주기
+  // const dispatch = useDispatch();
+  // useEffect(()=>{
+  //   dispatch(loadUsers());
+  // },[dispatch])
   
+  // if(loading){
+  //   return <p>로딩중</p>
+  // }
+  // if(error){
+  //   return <p>에러.. {error}</p>
+  // }
+
 
   return (
     <div>

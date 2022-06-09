@@ -12,10 +12,10 @@ import {
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 // 액션 타입
-const ADD_USER = 'user/ADD_USER'
-const LOAD_USER = 'user/LOAD_USER'
-const DELETE_USER = 'user/DELETE_USER'
-const UPDATE_USER = 'user/UPDATE_USER'
+const ADD_USER = 'post/ADD_USER'
+const LOAD_USER = 'post/LOAD_USER'
+const DELETE_USER = 'post/DELETE_USER'
+const UPDATE_USER = 'post/UPDATE_USER'
 
 // 추가 기능
 export const addUsers = createAsyncThunk(ADD_USER, async(payload) => {
@@ -62,7 +62,12 @@ export const postsSliceTwo =createSlice({
     },
     // 일반 리듀서는 안쓴다.
     reducers:{},
-    // extra reducer = middleware
+     //extra reducer = middleware
+    // extraReducers:{
+    //     [loadUsers.fulfilled]: (state, { payload }) => {state.lists = payload; state.loading = false; state.error = null},
+    //     [loadUsers.pending]: (state) => {state.loading = true},
+    //     [loadUsers.rejected]: (state, action) => {state.error = action.error.message; state.loading = false;},
+    // }
     extraReducers: builder =>{
         // 추가
         builder.addCase(addUsers.pending, state => { // 로딩 = pending
@@ -131,9 +136,8 @@ export const postsSliceTwo =createSlice({
             state.loading = false;
             state.lists = [];
             state.error = action.error.message;
-        })
-        
-    }
+       })
+   }
 })
 
 
