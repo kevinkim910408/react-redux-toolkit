@@ -1,7 +1,7 @@
 import Posts from './components/Posts'
 
 // import {fetchUsers} from './redux/userSlice'
-import { loadUsers } from './redux/postSliceTwo';
+import { loadUsers } from './redux/postSliceThree';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import PostsTwo from './components/PostsTwo';
@@ -31,7 +31,7 @@ function App() {
   
  */
 
-  // const {lists, error, loading} = useSelector(state=>state.postsTwo)
+ // const {lists, error, loading} = useSelector(state=>state.postsTwo)
   // console.log(lists)
 
   // // firestore에서 get 한거 보여주기
@@ -47,6 +47,20 @@ function App() {
   //   return <p>에러.. {error}</p>
   // }
 
+  const {lists} = useSelector(state => state.postsThree);
+
+  const dispatch = useDispatch();
+  useEffect(()=>{
+    dispatch(loadUsers());
+  },[dispatch])
+
+  console.log(lists.data)
+
+ 
+
+  const onSubmitHandler = (e) => { 
+    e.preventDefault();
+  }
 
   return (
     <div>
@@ -55,10 +69,21 @@ function App() {
       {/* <Posts /> */}
 
       {/* 여기서부터는 Thunk로 firestore 접근 */}
-      <PostsTwo />
+      {/* <PostsTwo /> */}
       {/* 여기서 부터는 Thunk axios로 get 하기 */}
       {/* {userList} */}
 
+      {/* 여기서 부터는 Thunk Axios로 get 하기 -  */}
+      <form onSubmit={(e)=> onSubmitHandler(e)}>
+        <input type="text"></input>
+      </form>
+      {lists.data !== undefined ?
+      lists.data.map((v)=>{
+        return <>
+          <p>{v.id}: {v.title}</p>
+        </>
+      }) :
+      <></>}
     </div>
   );
 }
